@@ -1,10 +1,11 @@
+
 class LittleBlackBook
 	attr_reader :who
 	attr_accessor :place, :dates, :places, :who, :first_date
 	def initialize(my_date={})
 		style_1
 		open = gets.chomp
-		if open == "New" 
+		if open == "New"
 			style_2
 			@who = my_date[:who] || gets.chomp
 			style_3
@@ -17,13 +18,15 @@ class LittleBlackBook
 			style_5
 			@first_date = my_date[:@first_date] || gets.chomp
 			new_WhichDate = WhichDate.new(@first_date)
+		elsif open == "Post"
+			p "Meow my Life off"
 		end
 	end
 
 	def style_1
 		puts "======================================"
 		puts "   Welcome To My Little Black Book"
-		puts "          New or Search?"
+		puts "          New, Search, Post"
 		puts "======================================"
 	end
 
@@ -42,15 +45,15 @@ class LittleBlackBook
 	def style_4
 		puts "--------------------------------------"
 		puts "         When was the date?"
-		puts  "         Default's today!"
+		puts  "          Default's today!"
 		puts "--------------------------------------"
 	end
 
 	def style_5
 		puts "--------------------------------------"
 		puts "  Which date would you like to view?"
-		puts "       Default is First Date!"
-		puts "      Total, All, Random, Last"
+		puts "         Default is First Date!"
+		puts "     Total, All, Name, Random, Last"
 		puts "--------------------------------------"
 	end
 
@@ -61,7 +64,6 @@ class Location
 require 'csv'
 	attr_accessor :places
 	def initialize(place, who, today, checking)
-		@places = place
 		@places = []
 		@places << "#{who} "
 		@places << "#{place} "
@@ -80,7 +82,7 @@ require 'csv'
 		end
 	end
 end
-# 
+#
 class WhichDate
 	def initialize(index)
 		@index = index
@@ -105,8 +107,17 @@ class WhichDate
 		 puts @all_dates.length
 		elsif @index == "Last"
 		 p @all_dates[all_dates_length]
+		elsif @index == ""
+			puts @all_dates[@index.to_i]
 		else
-		 puts @all_dates[@index.to_i]
+			@all_dates.each do |date|
+				date.each do |parts|
+					part = parts.split
+					if part[0] == @index
+						puts part.join(" ")
+					end
+				end
+			end
 		end
 	end
 
